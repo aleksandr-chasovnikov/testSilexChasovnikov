@@ -4,6 +4,10 @@ namespace Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @property integer $item_id
+ * @property integer $tag_id
+ */
 class ItemTagLink extends Model
 {
     /**

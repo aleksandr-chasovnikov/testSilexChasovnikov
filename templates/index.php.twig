@@ -3,9 +3,7 @@
 {% block content %}
 
 
-    {#<a href="{{ url('feedback') }}">sdadasdads</a>#}
 <form action="{{ path('feedback') }}" method="post">
-
     <p>
         <select size="6" multiple name="search[]">
             <option disabled>Дожны входить</option>
@@ -16,7 +14,6 @@
 
         </select>
     </p>
-
     <p>
         <select size="6" multiple name="nosearch[]">
             <option disabled>Не дожны входить</option>
@@ -27,7 +24,6 @@
 
         </select>
     </p>
-
     <p><input type="submit" value="Отправить"></p>
 </form>
 

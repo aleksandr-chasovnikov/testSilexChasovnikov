@@ -3,8 +3,12 @@
 namespace Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
+/**
+ * @property integer $id
+ * @property string  $name
+ * @property integer $show_count
+ */
 class Item extends Model
 {
     /**
@@ -20,17 +24,4 @@ class Item extends Model
      * @var array
      */
     protected $guarded = [];
-
-    /**
-     * @return BelongsToMany
-     */
-    public function tags()
-    {
-        return $this->belongsToMany(
-            Tag::class,
-            'item_tag_link',
-            'item_id',
-            'tag_id'
-        );
-    }
 }
