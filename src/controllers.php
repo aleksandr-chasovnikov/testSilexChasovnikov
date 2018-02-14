@@ -65,7 +65,7 @@ $app->post('/feedback', function(Request $request) use ($app) {
     });
 
     $fp = fopen('file.csv', 'w');
-    fputcsv($fp, $result, ';');
+    fputcsv($fp, $result);
     fclose($fp);
 
     return $app->sendFile('file.csv');
