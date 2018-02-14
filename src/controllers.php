@@ -4,8 +4,6 @@ use Models\Tag;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-//Request::setTrustedProxies(array('127.0.0.1'));
-
 // На главную страницу
 $app->get('/', function() use ($app) {
 
@@ -18,8 +16,9 @@ $app->get('/', function() use ($app) {
 // Маршрут из формы
 $app->post('/feedback', function(Request $request) use ($app) {
 
+    // Обработка списка товаров, которые должны входить в искомый набор
     $search = $request->get('search');
-    $productsSearch = []; // Должны входить в искомый набор
+    $productsSearch = [];
 
     if (is_array($search)) {
         foreach ($search as $tagId) {
@@ -34,8 +33,9 @@ $app->post('/feedback', function(Request $request) use ($app) {
         }
     }
 
+    // Обработка списка товаров, которые НЕ должны входить в искомый набор
     $nosearch = $request->get('nosearch');
-    $productsNoSearch = []; // Не должны входить в искомый набор
+    $productsNoSearch = [];
 
     if (is_array($nosearch)) {
         foreach ($nosearch as $tagId) {
@@ -51,7 +51,6 @@ $app->post('/feedback', function(Request $request) use ($app) {
     }
 
     $result = null;
-
     if ($productsSearch != $productsNoSearch) {
         $result = array_diff($productsSearch, $productsNoSearch);
     }
