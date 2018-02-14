@@ -1,6 +1,7 @@
 <?php
 
 use Models\Item;
+use Models\Tag;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -11,15 +12,42 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 $app->get('/', function() use ($app) {
 
-    $items = Item::all();
+    $tags = Tag::all();
 //    var_dump($items);die('hello');
 
     return $app['twig']->render('index.php.twig', [
-            'items' => $items,
+            'tags' => $tags,
         ]
     );
 
 })->bind('homepage');
+
+
+$app->post('/feedback', function (Request $request) use ($app)  {
+
+//    var_dump($request->get('search'));die;
+    $products = [];
+    foreach ($request->get('search') as $tagId) {
+        $tag = Tag::find($tagId);
+
+        foreach ($tag->items as $item) {
+            $item->show_count += 1;
+
+            $item->save();
+
+            $products[]['id'] = $item->id;
+            $products[]['name'] = $item->name;
+        }
+    }
+
+    var_dump($products);die;
+
+//    return $app['twig']->render('index.php.twig', [
+//            'items' => $items,
+//        ]
+//    );
+
+})->bind('feedback');
 
 
 $app->error(function(\Exception $e, Request $request, $code) use ($app) {

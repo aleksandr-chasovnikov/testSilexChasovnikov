@@ -11,16 +11,7 @@ class ItemTagLink extends Model
      */
     protected $table = 'item_tag_link';
 
-    /**
-     * Атрибуты, которые должны быть преобразованы в даты.
-     *
-     * @var array
-     */
-    protected $dates = [
-        'created_at',
-        'updated_at',
-        'deleted_at',
-    ];
+    public $timestamps = false;
 
     /**
      * Атрибуты, для которых запрещено массовое назначение.
